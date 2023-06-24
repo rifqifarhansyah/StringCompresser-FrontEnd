@@ -29,7 +29,7 @@ function LZWCompression() {
   //   baseURL: 'http://localhost:5000',
   // });
   const api = axios.create({
-    baseURL: 'https://string-compresser-backend.vercel.app',
+    baseURL: 'https://string-compresser-backend.vercel.app/',
   });
   
     const handleCloseError = () => {
@@ -51,6 +51,7 @@ function LZWCompression() {
     
     const encode = () => {
         if (algorithm === "LZW") {
+          console.log("encode")
           api
             .post('/api/encode', { input: inputEncoder, outputChoice })
             .then((response) => {
