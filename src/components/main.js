@@ -60,6 +60,7 @@ function LZWCompression() {
             .catch((error) => {
               console.error('Error:', error);
             });
+          console.log("encode front end selesai")
         } else if (algorithm === "Huffman") {
           api
             .post('/api/huffmanEncode', { input: inputEncoder, outputChoice })
