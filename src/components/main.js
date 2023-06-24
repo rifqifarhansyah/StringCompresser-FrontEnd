@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-function LZWCompression() {
+function Main() {
   const [inputEncoder, setInputEncoder] = useState('');
   const [inputDecoder, setInputDecoder] = useState('');
   const [encodedOutput, setEncodedOutput] = useState('');
@@ -230,4 +230,4 @@ function LZWCompression() {
   );
 }
 
-export default LZWCompression;
+export default Main;
