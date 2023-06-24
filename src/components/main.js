@@ -29,7 +29,7 @@ function LZWCompression() {
   //   baseURL: 'http://localhost:5000',
   // });
   const api = axios.create({
-    baseURL: 'https://string-compresser-backend.vercel.app/',
+    baseURL: 'https://string-compresser-backend.vercel.app',
   });
   
     const handleCloseError = () => {
