@@ -51,16 +51,16 @@ function LZWCompression() {
     
     const encode = () => {
         if (algorithm === "LZW") {
-          console.log("encode")
+          console.log("encode");
           api
-            .post('/api/encode', {inputEncoder, outputChoice })
+            .post('/api/encode', {inputEncoder, outputChoice})
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
             .catch((error) => {
               console.error('Error:', error);
             });
-          console.log("encode front end selesai")
+          console.log("encode front end selesai");
         } else if (algorithm === "Huffman") {
           api
             .post('/api/huffmanEncode', {inputEncoder, outputChoice })
