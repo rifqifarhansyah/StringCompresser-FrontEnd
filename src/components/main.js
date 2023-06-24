@@ -25,12 +25,12 @@ function LZWCompression() {
   const [showError, setShowError] = useState(false); // State untuk menampilkan pop-up informasi
   const [algorithm, setAlgorithm] = useState("LZW");
 
+  // const api = axios.create({
+  //   baseURL: 'http://localhost:5000',
+  // });
   const api = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://string-compresser-backend.vercel.app',
   });
-//   const api = axios.create({
-//     baseURL: 'https://string-compresser-backend.vercel.app',
-//   });
   
     const handleCloseError = () => {
       // Fungsi penanganan penutupan pop-up informasi
