@@ -53,7 +53,7 @@ function LZWCompression() {
         if (algorithm === "LZW") {
           console.log("encode")
           api
-            .post('/api/encode', { input: inputEncoder, outputChoice })
+            .post('/api/encode', {inputEncoder, outputChoice })
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
@@ -63,7 +63,7 @@ function LZWCompression() {
           console.log("encode front end selesai")
         } else if (algorithm === "Huffman") {
           api
-            .post('/api/huffmanEncode', { input: inputEncoder, outputChoice })
+            .post('/api/huffmanEncode', {inputEncoder, outputChoice })
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
@@ -76,7 +76,7 @@ function LZWCompression() {
       const decode = () => {
         if (algorithm === "LZW") {
           api
-            .post("/api/decode", { input: inputDecoder, inputChoice })
+            .post("/api/decode", { inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
@@ -94,7 +94,7 @@ function LZWCompression() {
             });
         } else if (algorithm === "Huffman") {
           api
-            .post("/api/huffmanDecode", { input: inputDecoder, inputChoice })
+            .post("/api/huffmanDecode", {inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
