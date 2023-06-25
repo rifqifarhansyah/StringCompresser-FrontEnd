@@ -52,7 +52,7 @@ function Main() {
     const encode = () => {
         if (algorithm === "LZW") {
           axios
-            .post('${process.env.REACT_APP_BACKEND_API}/api/encode', {inputEncoder, outputChoice})
+            .post(`${process.env.REACT_APP_BACKEND_API}/api/encode`, {inputEncoder, outputChoice})
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
@@ -61,7 +61,7 @@ function Main() {
             });
         } else if (algorithm === "Huffman") {
           axios
-            .post('${process.env.REACT_APP_BACKEND_API}/api/huffmanEncode', {inputEncoder, outputChoice })
+            .post(`${process.env.REACT_APP_BACKEND_API}/api/huffmanEncode`, {inputEncoder, outputChoice })
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
@@ -74,7 +74,7 @@ function Main() {
       const decode = () => {
         if (algorithm === "LZW") {
           axios
-            .post("${process.env.REACT_APP_BACKEND_API}/api/decode", { inputDecoder, inputChoice })
+            .post(`${process.env.REACT_APP_BACKEND_API}/api/decode`, { inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
@@ -92,7 +92,7 @@ function Main() {
             });
         } else if (algorithm === "Huffman") {
           axios
-            .post("${process.env.REACT_APP_BACKEND_API}/api/huffmanDecode", {inputDecoder, inputChoice })
+            .post(`${process.env.REACT_APP_BACKEND_API}/api/huffmanDecode`, {inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
