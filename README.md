@@ -1,70 +1,204 @@
-# Getting Started with Create React App
+# String Compresser - FrontEnd
+<h2 align="center">
+   Text Compresser
+</h2>
+<hr>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of Contents
+1. [General Info](#general-information)
+2. [Creator Info](#creator-information)
+3. [Features](#features)
+4. [Technologies Used](#technologies-used)
+5. [Setup](#setup)
+6. [Usage](#usage)
+7. [Algorithm](#usage)
+8. [Video Capture](#videocapture)
+9. [Screenshots](#screenshots)
+10. [Structure](#structure)
+11. [Project Status](#project-status)
+12. [Room for Improvement](#room-for-improvement)
+13. [Acknowledgements](#acknowledgements)
+14. [Contact](#contact)
 
-## Available Scripts
+<a name="general-information"></a>
 
-In the project directory, you can run:
+## General Information
+Sebuah aplikasi berbasis website sederhana yang dapat digunakan untuk melakukan encode dan decode terhadap masukan string tertentu dengan menggunakan 2 pilihan algoritma, yaitu: `LZW (Lempel-Ziv-Welch)` dan `Huffman`. Website ini disusun menggunakan React untuk frontend framework serta Node dan Express untuk backend framework. Tugas ini disusun untuk memenuhi tugas pertama seleksi Lab IRK tahun 2023.
+ 
+<a name="creator-information"></a>
 
-### `npm start`
+## Creator Information
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Nama                        | NIM      | E-Mail                      |
+| --------------------------- | -------- | --------------------------- |
+| Mohammad Rifqi Farhansyah   | 13521166 | 13521166@std.stei.itb.ac.id |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<a name="features"></a>
 
-### `npm test`
+## Features
+- Memilih `algoritma` yang akan digunakan, yaitu: `LZW` atau `Huffman`
+- Melakukan proses `encode` suatu text masukan menjadi `binary` atau `decimal`
+- Melakukan proses `decode` suatu text masukan menjadi `binary` atau `decimal`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<a name="technologies-used"></a>
 
-### `npm run build`
+## Technologies Used
+* [Node](https://nodejs.org/en) - versi 16.18.0
+* [React](https://react.dev/) - versi 18.2.0
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+> Note: The version of the libraries above is the version that we used in this project. You can use the latest version of the libraries.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<a name="setup"></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup
+1. Clone Repository ini dengan menggunakan command berikut
+   ```sh
+   git clone https://github.com/rifqifarhansyah/CompresserString-WebApp.git
+   ```
+2. Buka Folder "stringcompresser-frontend" di Terminal
+3. Install Packages yang diperlukan
+   ```sh
+   npm i
+   ```
+4. Untuk menjalankan frontend pada localhost, masukkan command
+   ```sh
+   npm start
+   ```
+6. Buka `localhost` yang digunakan pada Browser Anda `(default PORT : 3000)`
 
-### `npm run eject`
+<a name="usage"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Usage
+1. Pilih `algoritma` yang akan digunakan menggunakan dropdownButton di bagian atas layar
+2. Tentukan opsi program yang hendak dipilih, yaitu: `encode` atau `decode`
+3. Ketikkan `masukan string` pada kolom text-field yang telah disediakan
+4. Pilih `Output Choice` serta `Input Choice` yang hendak digunakan (Binary atau Decimal)
+5. Tekan tombol `Encode` atau `Decode`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<a name="algorithm"></a>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Algorithm
+### Implementasi LZW Proses Encode
+1. Inisialisasi tabel dengan setiap karakter tunggal sebagai entri awal dan penomoran indeks 0 hingga 255 (sesuai jumlah karakter ASCII yang digunakan).
+2. Inisialisasi variabel p dengan karakter pertama dari inputEncoder.
+3. Inisialisasi variabel c dengan string kosong.
+4. Inisialisasi variabel code dengan nilai 256 sebagai indeks berikutnya dalam tabel.
+5. Inisialisasi array outputCode untuk menyimpan hasil encoding.
+6. Lakukan perulangan untuk setiap karakter dalam inputEncoder:
+   - Gabungkan karakter saat ini c dengan karakter berikutnya dalam inputEncoder.
+   - Periksa apakah kombinasi p + c ada dalam tabel:
+         - Jika iya, perbarui p menjadi p + c.
+         - Jika tidak, tambahkan kode untuk p ke dalam outputCode, tambahkan p + c sebagai entri baru dalam tabel dengan kode code, dan tingkatkan nilai code sebesar 1. Perbarui p menjadi c.
+   - Set c menjadi string kosong untuk iterasi berikutnya.
+7. Tambahkan kode untuk p ke dalam outputCode.
+8. Jika outputChoice adalah "binary", ubah setiap elemen dalam outputCode menjadi format biner.
+9. Kembalikan outputCode sebagai hasil encoding.
+### Implementasi LZW Proses Decode
+1. Inisialisasi tabel dengan setiap karakter tunggal sebagai entri awal dan penomoran indeks 0 hingga 255.
+2. Split inputDecoder menjadi array inputDecoded dengan memisahkan berdasarkan spasi dan menghapus spasi tambahan.
+3. Inisialisasi variabel old dengan nilai dari elemen pertama dalam inputDecoded, mengonversinya ke bilangan desimal dengan basis sesuai dengan inputChoice.
+4. Inisialisasi variabel n, s, dan decodedString dengan nilai-nilai awal yang sesuai.
+5. Inisialisasi variabel count dengan nilai 256 sebagai indeks berikutnya dalam tabel.
+6. Lakukan perulangan untuk setiap elemen dalam inputDecoded (kecuali elemen terakhir):
+   - Ubah elemen saat ini menjadi bilangan desimal dengan basis sesuai dengan inputChoice.
+   - Periksa apakah bilangan n ada dalam tabel:
+         - Jika iya, setel entry dengan nilai entri dalam tabel untuk bilangan n.
+         - Jika tidak, setel entry dengan gabungan antara entri dalam tabel untuk bilangan old dan karakter pertama dari s.
+   - Tambahkan entry ke dalam decodedString.
+   - Tambahkan entri baru dalam tabel dengan indeks count, yang merupakan gabungan antara entri dalam tabel untuk bilangan old dan karakter pertama dari entry.
+   - Tingkatkan nilai count sebesar 1.
+   - Perbarui nilai old menjadi n dan s menjadi entry.
+7. Kembalikan decodedString sebagai hasil dekompresi.
+### Implementasi Huffman Proses Encode
+1. Menghitung frekuensi kemunculan setiap karakter dalam teks inputEncoder menggunakan fungsi getCharacterFrequency.
+2. Membangun pohon Huffman menggunakan fungsi buildHuffmanTree berdasarkan frekuensi karakter.
+3. Menghasilkan kode Huffman untuk setiap karakter menggunakan fungsi generateHuffmanCodes.
+4. Mengonversi teks menjadi kode Huffman menggunakan fungsi encodeText.
+5. Jika outputChoice adalah "decimal":
+   - Mengonversi kode Huffman menjadi bilangan desimal menggunakan fungsi binaryToDecimal.
+   - Menampilkan hasil kompresi dalam bentuk array bilangan desimal.
+   - Menyimpan kode Huffman dalam file "file.txt" menggunakan fs.appendFile.
+   - Mengembalikan hasil kompresi dalam bentuk string bilangan desimal.
+6. Jika outputChoice bukan "decimal":
+   - Menampilkan kode Huffman.
+   - Menampilkan hasil kompresi dalam bentuk kode Huffman.
+   - Menyimpan kode Huffman dalam file "file.txt" menggunakan fs.appendFile.
+   - Mengembalikan hasil kompresi dalam bentuk string kode Huffman.
+### Implementasi Huffman Proses Decode
+1. Membaca file "file.txt" yang berisi kode Huffman.
+2. Mengambil informasi kode Huffman dari file dan menyimpannya dalam objek codes.
+3. Memecah teks yang dikodekan menjadi array encodedText.
+4. Iterasi untuk setiap kode dalam encodedText:
+   - Membentuk kode Huffman saat ini (currentCode).
+   - Jika codes memiliki kode Huffman tersebut:
+         - Menambahkan karakter yang sesuai ke decodedText.
+         - Me-reset currentCode.
+5. Mengembalikan teks yang sudah didekodekan (decodedText).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<a name="videocapture"></a>
 
-## Learn More
+## Video Capture
+<nl>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![CompresserString Gif](https://github.com/rifqifarhansyah/CompresserString-WebApp/blob/main/img/textCompresser.gif?raw=true)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<a name="screenshots"></a>
 
-### Code Splitting
+## Screenshots
+<p>
+  <p>Gambar 1. Landing Page</p>
+  <img src="/img/SS1.png/">
+  <nl>
+  <p>Gambar 2. LZW dengan Binary</p>
+  <img src="/img/SS2.png/">
+  <nl>
+  <p>Gambar 3. LZW dengan Decimal</p>
+  <img src="/img/SS3.png/">
+  <nl>
+   <p>Gambar 4. Huffman dengan Binary</p>
+   <img src="/img/SS4.png/">
+   <nl>
+</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<a name="structure"></a>
 
-### Analyzing the Bundle Size
+## Structure
+```bash
+├───.vscode
+├───backend
+│   └───node_modules
+├───frontend
+│   ├───node_modules
+│   ├───public
+│   └───src
+│       ├───components
+│       ├───pages
+│       │   └───Home
+│       └───styles
+└───img
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<a name="project-status">
 
-### Making a Progressive Web App
+## Project Status
+Project is: _complete_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<a name="room-for-improvement">
 
-### Advanced Configuration
+## Room for Improvement
+Perbaikan yang dapat dilakukan pada program ini adalah:
+- Menambahkan algoritma-algoritma serta fungsionalitas lainnya
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<a name="acknowledgements">
 
-### Deployment
+## Acknowledgements
+- Terima kasih kepada Tuhan Yang Maha Esa
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<a name="contact"></a>
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contact
+<h4 align="center">
+  Kontak Saya : mrifki193@gmail.com<br/>
+  2023
+</h4>
+<hr>
