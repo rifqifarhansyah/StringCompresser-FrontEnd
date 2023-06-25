@@ -28,9 +28,9 @@ function Main() {
   // const api = axios.create({
   //   baseURL: 'http://localhost:5000',
   // });
-  const api = axios.create({
-    baseURL: 'https://string-compresser-backend.vercel.app',
-  });
+  // const api = axios.create({
+  //   baseURL: 'https://string-compresser-backend.vercel.app',
+  // });
   
     const handleCloseError = () => {
       // Fungsi penanganan penutupan pop-up informasi
@@ -51,19 +51,17 @@ function Main() {
     
     const encode = () => {
         if (algorithm === "LZW") {
-          console.log("encode");
-          api
-            .post('/api/encode', {inputEncoder, outputChoice})
+          axios
+            .post('${process.env.REACT_APP_BACKEND_API}/api/encode', {inputEncoder, outputChoice})
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
             .catch((error) => {
               console.error('Error:', error);
             });
-          console.log("encode front end selesai");
         } else if (algorithm === "Huffman") {
-          api
-            .post('/api/huffmanEncode', {inputEncoder, outputChoice })
+          axios
+            .post('${process.env.REACT_APP_BACKEND_API}/api/huffmanEncode', {inputEncoder, outputChoice })
             .then((response) => {
               setEncodedOutput(response.data.encodedOutput);
             })
@@ -75,8 +73,8 @@ function Main() {
       
       const decode = () => {
         if (algorithm === "LZW") {
-          api
-            .post("/api/decode", { inputDecoder, inputChoice })
+          axios
+            .post("${process.env.REACT_APP_BACKEND_API}/api/decode", { inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
@@ -93,8 +91,8 @@ function Main() {
               }
             });
         } else if (algorithm === "Huffman") {
-          api
-            .post("/api/huffmanDecode", {inputDecoder, inputChoice })
+          axios
+            .post("${process.env.REACT_APP_BACKEND_API}/api/huffmanDecode", {inputDecoder, inputChoice })
             .then((response) => {
               setDecodedOutput(response.data.decodedOutput);
             })
